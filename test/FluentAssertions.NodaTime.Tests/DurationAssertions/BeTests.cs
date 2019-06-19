@@ -1,7 +1,6 @@
 using NUnit.Framework;
 using FluentAssertions;
 using NodaTime;
-using static FluentAssertions.NodaTime.Tests.Helpers.Specification;
 using System;
 
 namespace FluentAssertions.NodaTime.Tests.DurationAssertions
