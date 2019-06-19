@@ -9,4 +9,18 @@
     <PackageReference Include="nodatime" Version="2.4.2" />
   </ItemGroup>
 
+  <PropertyGroup>
+    <Authors>James G. McAuley</Authors>
+    <PackageId>FluentAssertions.NodaTime</PackageId>
+    <PackageDescription>
+      A set of extension methods that allow you to easily write assertions involving types from the NodaTime library.
+    </PackageDescription>
+    <RepositoryUrl>https://github.com/jagrem/fluentassertions.nodatime.git</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageTags>MSTest;MSTest2;xUnit;xUnit2;NUnit;TDD;BDD;Fluent;netcore;netstandard;uwp</PackageTags>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageReleaseNotes>See https://github.com/jagrem/fluentassertions.nodatime/releases</PackageReleaseNotes>
+    <Copyright>Copyright James G. McAuley 2019</Copyright>
+  </PropertyGroup>
+
 </Project>
