@@ -70,7 +70,7 @@ namespace FluentAssertions.NodaTime
             throw new NotImplementedException();
         }
 
-        public AndConstraint<SimpleTimeSpanAssertions> BeCloseTo(Duration nearbyTime, int precision = 20, string because = "",
+        public AndConstraint<SimpleTimeSpanAssertions> BeCloseTo(Duration nearbyTime, Duration precision, string because = "",
             params object[] becauseArgs)
         {
             throw new NotImplementedException();
