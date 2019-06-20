@@ -26,6 +26,6 @@ namespace FluentAssertions.NodaTime.Tests.DurationAssertions
         [Test]
         public void Given_two_different_durations_and_no_reason_When_asserting_they_are_equal_Then_the_assertion_fails_with_the_expected_message() =>
             new Action(() => Duration.FromDays(5).Should().Be(Duration.FromDays(6), null, null))
-                .Should().Throw<AssertionException>().WithMessage("Expected duration to be 4:00:00:00, but found 3:00:00:00.");
+                .Should().Throw<AssertionException>().WithMessage("Expected duration to be 6:00:00:00, but found 5:00:00:00.");
     }
 }

@@ -18,21 +18,23 @@ namespace FluentAssertions.NodaTime.Tests.DurationAssertions
             Duration.FromDays(8).Should().BePositive(because, becauseArgs);
 
         [Test]
-        public void Given_a_zero_duration_When_asserting_it_is_positive_Then_the_assertion_passes() =>
-            Duration.Zero.Should().BePositive(because, becauseArgs);
+        public void Given_a_zero_duration_When_asserting_it_is_positive_Then_the_assertion_fails() =>
+            new Action(() => Duration.Zero.Should().BePositive(because, becauseArgs))
+                .Should().Throw<AssertionException>().WithMessage("Expected duration to be positive because the answer should be 42, but found 0:00:00:00.");
 
         [Test]
-        public void Given_a_zero_duration_and_no_reason_When_asserting_it_is_positive_Then_the_assertion_passes() =>
-            Duration.Zero.Should().BePositive(null, null);
+        public void Given_a_zero_duration_and_no_reason_When_asserting_it_is_positive_Then_the_assertion_fails() =>
+            new Action(() => Duration.Zero.Should().BePositive(null, null))
+                .Should().Throw<AssertionException>().WithMessage("Expected duration to be positive, but found 0:00:00:00.");
 
         [Test]
         public void Given_a_negative_duration_and_no_reason_When_asserting_it_is_positive_Then_the_assertion_fails() =>
             new Action(() => Duration.FromDays(-8).Should().BePositive(null, null))
-                .Should().Throw<AssertionException>().WithMessage("Expected a positive duration but found 00:00:00.");
+                .Should().Throw<AssertionException>().WithMessage("Expected duration to be positive, but found -8:00:00:00.");
 
         [Test]
         public void Given_a_negative_duration_When_asserting_it_is_positive_Then_the_assertion_fails() =>
             new Action(() => Duration.FromDays(-8).Should().BePositive(because, becauseArgs))
-                .Should().Throw<AssertionException>().WithMessage("Expected a positive duration because the answer is 42 but found 00:00:00.");
+                .Should().Throw<AssertionException>().WithMessage("Expected duration to be positive because the answer should be 42, but found -8:00:00:00.");
     }
 }
