@@ -11,13 +11,13 @@ namespace FluentAssertions.NodaTime
 
         public Duration? Subject { get; }
 
-        AndConstraint<DurationAssertions> ExecuteAssertion(bool condition, Duration expected, string because = null, params object[] becauseArgs)
+        AndConstraint<DurationAssertions> ExecuteAssertion(bool condition, string description, Duration expected, string because = null, params object[] becauseArgs)
         {
             Execute.Assertion
                 .ForCondition(condition)
                 .BecauseOf(because, becauseArgs)
                 .FailWith(
-                    "Expected {context:duration} to be {0}{reason}, but found {1}.",
+                    $"Expected {{context:duration}} {description} {{0}}{{reason}}, but found {{1}}.",
                     expected,
                     Subject ?? default(Duration?));
 
@@ -25,10 +25,10 @@ namespace FluentAssertions.NodaTime
         }
 
         public AndConstraint<DurationAssertions> Be(Duration expected, string because = "", params object[] becauseArgs) =>
-            ExecuteAssertion(Subject.HasValue && (Subject.Value == expected), expected, because, becauseArgs);
+            ExecuteAssertion(Subject.HasValue && (Subject.Value == expected), "to be", expected, because, becauseArgs);
 
         public AndConstraint<DurationAssertions> NotBe(Duration expected, string because = "", params object[] becauseArgs) =>
-            ExecuteAssertion(!Subject.HasValue || Subject.Value != expected, expected, because, becauseArgs);
+            ExecuteAssertion(!Subject.HasValue || Subject.Value != expected, "to not be", expected, because, becauseArgs);
 
         public AndConstraint<DurationAssertions> BePositive(string because = "", params object[] becauseArgs)
         {
@@ -50,45 +50,17 @@ namespace FluentAssertions.NodaTime
             return new AndConstraint<DurationAssertions>(this);
         }
 
-        public AndConstraint<DurationAssertions> BeLessThan(Duration expected, string because = "", params object[] becauseArgs)
-        {
-            Execute.Assertion
-                .ForCondition(Subject.Value < expected)
-                .BecauseOf(because, becauseArgs)
-                .FailWith("Expected {context:duration} to be less than {0}{reason}, but found {1}.", expected, Subject.Value);
+        public AndConstraint<DurationAssertions> BeLessThan(Duration expected, string because = "", params object[] becauseArgs) =>
+            ExecuteAssertion(Subject.Value < expected, "to be less than", expected, because, becauseArgs);
 
-            return new AndConstraint<DurationAssertions>(this);
-        }
+        public AndConstraint<DurationAssertions> BeLessOrEqualTo(Duration expected, string because = "", params object[] becauseArgs) =>
+            ExecuteAssertion(Subject.Value <= expected, "to be less than or equal to", expected, because, becauseArgs);
 
-        public AndConstraint<DurationAssertions> BeLessOrEqualTo(Duration expected, string because = "", params object[] becauseArgs)
-        {
-            Execute.Assertion
-                .ForCondition(Subject.Value <= expected)
-                .BecauseOf(because, becauseArgs)
-                .FailWith("Expected {context:duration} to be less than or equal to {0}{reason}, but found {1}.", expected, Subject.Value);
+        public AndConstraint<DurationAssertions> BeGreaterThan(Duration expected, string because = "", params object[] becauseArgs) =>
+            ExecuteAssertion(Subject.Value > expected, "to be greater than", expected, because, becauseArgs);
 
-            return new AndConstraint<DurationAssertions>(this);
-        }
-
-        public AndConstraint<DurationAssertions> BeGreaterThan(Duration expected, string because = "", params object[] becauseArgs)
-        {
-            Execute.Assertion
-                .ForCondition(Subject.Value > expected)
-                .BecauseOf(because, becauseArgs)
-                .FailWith("Expected {context:duration} to be greater than {0}{reason}, but found {1}.", expected, Subject.Value);
-
-            return new AndConstraint<DurationAssertions>(this);
-        }
-
-        public AndConstraint<DurationAssertions> BeGreaterOrEqualTo(Duration expected, string because = "", params object[] becauseArgs)
-        {
-            Execute.Assertion
-                .ForCondition(Subject.Value >= expected)
-                .BecauseOf(because, becauseArgs)
-                .FailWith("Expected {context:duration} to be greater or equal to {0}{reason}, but found {1}.", expected, Subject.Value);
-
-            return new AndConstraint<DurationAssertions>(this);
-        }
+        public AndConstraint<DurationAssertions> BeGreaterOrEqualTo(Duration expected, string because = "", params object[] becauseArgs) =>
+            ExecuteAssertion(Subject.Value >= expected, "to be greater or equal to", expected, because, becauseArgs);
 
         public AndConstraint<DurationAssertions> BeCloseTo(Duration nearbyTime, Duration precision, string because = "",
             params object[] becauseArgs)
