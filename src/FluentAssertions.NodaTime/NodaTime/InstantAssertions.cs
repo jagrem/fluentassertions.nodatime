@@ -37,7 +37,7 @@ namespace FluentAssertions.NodaTime
                 .ForCondition(condition)
                 .BecauseOf(because, becauseArgs)
                 .FailWith(
-                    $"Expected instant {description} {{0}}{{reason}}, but found {{1}}.",
+                    $"Expected {{context:instant}} {description} {{0}}{{reason}}, but found {{1}}.",
                     expected,
                     Subject ?? default(Instant?));
 
